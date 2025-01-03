@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
-import useAuth from '../UseAuth/UseAuth';
+import React, { useContext, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useAuth from '../UseAuth/UseAuth';
+import { AuthContext } from '../../Authentication/Authentication';
 
 
 const axiosInstanceSecure = axios.create({
@@ -12,7 +13,7 @@ const axiosInstanceSecure = axios.create({
 })
 const UseAxiosSecure = () => {
 
-    const { handleLogout } = useAuth();
+    const { handleLogout } = useAuth()
     const navigate = useNavigate();
 
     useEffect(() => {
