@@ -35,21 +35,13 @@ const Navbar = () => {
             className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
             Home
         </NavLink>
-        {/* <NavLink to={'/add-visa'}
+        <NavLink to={'/all-artifacts'}
             className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
-            Add Visa
-        </NavLink> */}
-        <NavLink to={'/posted-jobs'}
-            className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
-            Posted Jobs
+            All Artifacts
         </NavLink>
-        <NavLink to={'/add-job'}
+        <NavLink to={'/add-artifacts'}
             className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
-            Add Job
-        </NavLink>
-        <NavLink to={'/applied-jobs-list'}
-            className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
-            Applied Jobs List
+            Add Artifacts
         </NavLink>
 
         {
@@ -58,6 +50,16 @@ const Navbar = () => {
                     <Link onClick={logoutHandler}
                         className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
                         Logout
+                    </Link>
+                    <Link
+                        className="cursor-pointer">
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn m-1 text-black font-[700] text-[14px]">My Profile </div>
+                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                <li><Link to={'/my-artifacts'} className='text-black font-[700] text-[14px] hover:text-[#4b4bed]'>My Artifacts</Link></li>
+                                <li><Link to={'/liked-artifacts'} className='text-black font-[700] text-[14px] hover:text-[#4b4bed]'>Liked Artifacts</Link></li>
+                            </ul>
+                        </div>
                     </Link>
                     <NavLink
                         className="flex gap-2 justify-center items-center text-[14px]">
@@ -87,11 +89,11 @@ const Navbar = () => {
     </>
     return (
         <div>
-            <div className='md:w-[80%] mx-auto'>
+            <div className='md:w-[80%] mx-auto dm-sans-font'>
                 <nav>
                     <div className="navbar text-black">
                         <div className="navbar-start animate__animated animate__fadeInLeft">
-                            <Link to={'/'}><h2 className='text-black font-bold text-3xl'>HireSphere</h2></Link>
+                            <Link to={'/'}> <img className='md:w-2/6 w-32' src="https://i.ibb.co.com/W5mf58S/logo.png" alt="" /> </Link>
                         </div>
                         <div className="navbar-end">
                             <div className="lg:block hidden animate__animated animate__fadeInRight">

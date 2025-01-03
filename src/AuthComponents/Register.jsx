@@ -52,23 +52,13 @@ const Register = () => {
                     displayName: name, photoURL: photoURL
                 })
                 signOut(auth).then(result => { });
-                fetch('https://visasphere.vercel.app/users', {
-                    method: 'POST',
-                    body: JSON.stringify({ name, email, photoURL, creationTime: result.user.metadata.creationTime, lastSignInTime: result.user.metadata.lastSignInTime }),
-                    headers: {
-                        'content-type': 'application/json'
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        // console.log(data);
-                        if (data.result.insertedId) {
-                            Swal.fire({
-                                title: 'Successfully created Account!',
-                                icon: 'success'
-                            })
-                        }
+                if (data.result.insertedId) {
+                    Swal.fire({
+                        title: 'Successfully created Account!',
+                        icon: 'success'
                     })
+                }
+
 
                 navigate(location?.state || '/');
             })
@@ -87,37 +77,11 @@ const Register = () => {
             .then(res => {
                 console.log(res.user);
                 const user = res.user;
-                // insert user 
-                fetch('https://visasphere.vercel.app/users', {
-                    method: 'POST',
-                    body: JSON.stringify({ name: user.displayName, email: user.email, photoURL: user.photoURL, creationTime: user.metadata.creationTime, lastSignInTime: user.metadata.lastSignInTime }),
-                    headers: {
-                        'content-type': 'application/json'
-                    }
+                Swal.fire({
+                    title: 'Successfully Login!',
+                    icon: 'success'
                 })
-                    .then(res => res.json())
-                    .then(data => {
-                        // console.log(data);
-                        Swal.fire({
-                            title: 'Successfully Login!',
-                            icon: 'success'
-                        })
-                    })
-                
-                // update user lastLoginTime 
-                fetch('https://visasphere.vercel.app/users', {
-                    method: 'PATCH',
-                    body: JSON.stringify({ email: user.email, lastSignInTime: user.metadata.lastSignInTime }),
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-                        Swal.fire({
-                            title: 'Successfully Login!',
-                            icon: 'success'
-                        })
-                    })
+
                 navigate('/');
             })
             .catch(error => {
@@ -131,12 +95,12 @@ const Register = () => {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-[#ffffff] p-8 rounded-lg">
+        <div className="flex items-center justify-center min-h-screen bg-[#ffffff] p-8 rounded-lg ">
             <Helmet>
-                <title>Register | VisaSphere</title>
+                <title>Register | Wandau</title>
             </Helmet>
-            <div className="w-full max-w-md p-8 space-y-6 shadow-lg bg-[#4f7fc4] rounded-lg animate__animated animate__zoomIn">
-                <h2 className="text-2xl font-semibold text-center text-[#ffffffce]">Register your account</h2>
+            <div className="w-full max-w-md p-8 space-y-6 shadow-lg bg-[#59dba5] rounded-lg animate__animated animate__zoomIn">
+                <h2 className="text-2xl font-semibold text-center text-[#ffffffce]">Register Your Account</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>

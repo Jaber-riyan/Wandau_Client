@@ -11,7 +11,6 @@ const Login = () => {
     const { handleLogin, user, googleRegister } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const [emailSend, setEmailSend] = useState('');
 
 
     useEffect(() => {
@@ -84,12 +83,12 @@ const Login = () => {
             })
     }
     return (
-        <div className="flex items-center rounded-lg justify-center min-h-screen bg-[#ffffff] p-8">
+        <div className="flex items-center rounded-lg justify-center min-h-screen bg-[#ffffff] p-8 ">
             <Helmet>
-                <title>Login | TimeTreasures
+                <title>Login | Wandau
                 </title>
             </Helmet>
-            <form onSubmit={handleSubmit} className="w-full max-w-md py-20 px-8 space-y-6 bg-[#4f7fc4] rounded-lg shadow-lg animate__animated animate__zoomIn">
+            <form onSubmit={handleSubmit} className="w-full max-w-md py-20 px-8 space-y-6 bg-[#59dba5] rounded-lg shadow-lg animate__animated animate__zoomIn">
                 <h2 className="text-2xl font-semibold text-center text-[#ffff]">Login your account</h2>
 
                 <div className="space-y-4">
@@ -103,7 +102,6 @@ const Login = () => {
                                 type="email"
                                 id="email"
                                 name='email'
-                                onChange={(e) => setEmailSend(e.target.value)}
                                 placeholder="Enter your email address"
                                 className="w-full px-4 py-2 ml-2 border rounded-lg outline-none bg-[#ffffffce] focus:border-gray-400"
                             />
@@ -127,7 +125,7 @@ const Login = () => {
                     </div>
                 </div>
                 <p className="mt-4 text-sm text-gray-600">
-                    <Link to={`/forgat-password/${emailSend}`} className="underline text-[#ffffffce]">
+                    <Link className="underline text-[#ffffffce]">
                         Forgat Password?
                     </Link>
 

@@ -5,6 +5,7 @@ import {
 import Login from "../AuthComponents/Login";
 import HomeLayout from "../Pages/HomeLayout/HomeLayout";
 import Home from "../Pages/Home/Home";
+import Register from "../AuthComponents/Register";
 
 const router = createBrowserRouter([
     {
@@ -15,6 +16,14 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>
+            },
+            {
+                path: '/login',
+                element: <Login></Login>
+            },
+            {
+                path: '/register',
+                element: <Register></Register>
             }
         ]
     },
