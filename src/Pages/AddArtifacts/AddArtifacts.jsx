@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import useAuth from "../../Hooks/UseAuth/UseAuth";
+import Swal from "sweetalert2";
+import UseAxiosNormal from "../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal";
 
-const AddArtifact = ({ user }) => {
+const AddArtifact = () => {
+    const { user } = useAuth();
+    const axiosInstanceNormal = UseAxiosNormal();
     const [formData, setFormData] = useState({
         artifactName: "",
         artifactImage: "",
@@ -19,17 +24,30 @@ const AddArtifact = ({ user }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!formData.artifactImage.match(/^https?:\/\/.*\.(jpg|jpeg|png|gif|webp)$/)) {
-            alert("Please enter a valid image URL");
-            return;
-        }
-        console.log("Form Submitted:", {
-            ...formData,
-            adderName: user.name,
-            adderEmail: user.email,
-        });
-        // Add logic to send form data to your backend
-        alert("Artifact successfully added!");
+        // if (!formData.artifactImage.match(/^https?:\/\/.*\.(jpg|jpeg|png|gif|webp)$/)) {
+        //     Swal.fire({
+        //         title: "Please enter a valid image URL",
+        //         icon: 'info'
+        //     })
+        //     return;
+        // }
+
+        const addData = { ...formData, artifactAddedBy: user?.displayName, email: user?.email, likeCount: 0 };
+        console.log(addData);
+        // console.log(import.meta.env.VITE_SERVER_BASE_URL);
+
+        // send form data to MongoDB 
+        axiosInstanceNormal.post('/add-artifacts', addData)
+            .then(res => {
+                console.log(res.data.data);
+                Swal.fire({
+                    title: "Artifacts added successfully",
+                    icon: "success"
+                })
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
     };
 
     return (
@@ -178,8 +196,9 @@ const AddArtifact = ({ user }) => {
                         </label>
                         <input
                             type="text"
-                            value={user?.name || "Anonymous"}
+                            value={user?.displayName || "Anonymous"}
                             readOnly
+                            name="artifactAddedBy"
                             className="w-full p-2 border border-gray-300 rounded bg-gray-100"
                         />
                     </div>
@@ -192,6 +211,7 @@ const AddArtifact = ({ user }) => {
                             type="email"
                             value={user?.email || "N/A"}
                             readOnly
+                            name="email"
                             className="w-full p-2 border border-gray-300 rounded bg-gray-100"
                         />
                     </div>

@@ -7,17 +7,16 @@ import useAuth from '../UseAuth/UseAuth';
 import { AuthContext } from '../../Authentication/Authentication';
 
 
-const axiosInstanceSecure = axios.create({
-    baseURL: import.meta.env.SERVER_BASE_URL,
-    withCredentials: true
+const axiosInstanceNormal = axios.create({
+    baseURL: `${import.meta.env.VITE_SERVER_BASE_URL}`,
 })
-const UseAxiosSecure = () => {
+const UseAxiosNormal = () => {
 
     const { handleLogout } = useAuth()
     const navigate = useNavigate();
 
     useEffect(() => {
-        axiosInstanceSecure.interceptors.response.use(response => {
+        axiosInstanceNormal.interceptors.response.use(response => {
             return response;
         }, error => {
             console.log("error from interceptor : ", error);
@@ -43,9 +42,9 @@ const UseAxiosSecure = () => {
             }
             return Promise.reject(error);
         })
-    }, [])
+    }, [handleLogout, navigate])
 
-    return axiosInstanceSecure;
+    return axiosInstanceNormal;
 };
 
-export default UseAxiosSecure;
+export default UseAxiosNormal;

@@ -51,7 +51,7 @@ const Navbar = () => {
                         className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
                         Logout
                     </Link>
-                    <Link
+                    <div
                         className="cursor-pointer">
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn m-1 text-black font-[700] text-[14px]">My Profile </div>
@@ -60,7 +60,7 @@ const Navbar = () => {
                                 <li><Link to={'/liked-artifacts'} className='text-black font-[700] text-[14px] hover:text-[#4b4bed]'>Liked Artifacts</Link></li>
                             </ul>
                         </div>
-                    </Link>
+                    </div>
                     <NavLink
                         className="flex gap-2 justify-center items-center text-[14px]">
                         {user &&

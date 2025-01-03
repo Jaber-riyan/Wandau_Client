@@ -52,9 +52,7 @@ const Authentication = ({ children }) => {
                         setLoading(false);
                     })
             }
-
             // setLoading(false);
-
         })
         return () => {
             unsubscribe();
