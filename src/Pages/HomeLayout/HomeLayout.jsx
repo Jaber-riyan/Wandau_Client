@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 const HomeLayout = () => {
     return (
         <div className='dm-sans-font'>
-            <Helmet><title>Home | HireSphere</title></Helmet>
+            <Helmet><title>Home | HireSphere</title></Helmet
             <header className='sticky top-0 z-10 border-2 rounded-lg backdrop-blur-sm bg-transparent'>
                 <Navbar></Navbar>
             </header>
