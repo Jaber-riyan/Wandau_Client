@@ -7,7 +7,7 @@ import Footer from '../../Components/Footer/Footer';
 const HomeLayout = () => {
     return (
         <div className='dm-sans-font'>
-            <Helmet><title>Home | TimeTreasures</title></Helmet>
+            <Helmet><title>Home | Wandau</title></Helmet>
             <header className='sticky top-0 z-10 border-2 backdrop-blur-sm bg-transparent'>
                 <Navbar></Navbar>
             </header>

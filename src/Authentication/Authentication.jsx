@@ -37,22 +37,23 @@ const Authentication = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            // if (currentUser?.email) {
-            //     const user = { email: currentUser.email }
-            //     axios.post('https://hire-sphere-server.vercel.app/jwt', user, { withCredentials: true })
-            //         .then(data => {
-            //             console.log(data.data);
-            //             setLoading(false);
-            //         })
-            // }
-            // else {
-            //     axios.post('https://hire-sphere-server.vercel.app/jwt/logout', {}, { withCredentials: true })
-            //         .then(res => {
-            //             console.log(res.data);
-            //             setLoading(false);
-            //         })
-            // }
+            if (currentUser?.email) {
+                const user = { email: currentUser.email }
+                axios.post('https://hire-sphere-server.vercel.app/jwt', user, { withCredentials: true })
+                    .then(data => {
+                        console.log(data.data);
+                        setLoading(false);
+                    })
+            }
+            else {
+                axios.post(`https://hire-sphere-server.vercel.app/jwt/logout`, {}, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data);
+                        setLoading(false);
+                    })
+            }
 
+            // setLoading(false);
 
         })
         return () => {

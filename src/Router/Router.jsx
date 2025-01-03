@@ -6,6 +6,8 @@ import Login from "../AuthComponents/Login";
 import HomeLayout from "../Pages/HomeLayout/HomeLayout";
 import Home from "../Pages/Home/Home";
 import Register from "../AuthComponents/Register";
+import AddArtifact from "../Pages/AddArtifacts/AddArtifacts";
+import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>
+            },
+            {
+                path: '/add-artifacts',
+                element: <PrivateRoutes><AddArtifact></AddArtifact></PrivateRoutes>
             }
         ]
     },
