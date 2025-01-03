@@ -86,7 +86,8 @@ const Login = () => {
     return (
         <div className="flex items-center rounded-lg justify-center min-h-screen bg-[#ffffff] p-8">
             <Helmet>
-                <title>Login | VisaSphere</title>
+                <title>Login | TimeTreasures
+                </title>
             </Helmet>
             <form onSubmit={handleSubmit} className="w-full max-w-md py-20 px-8 space-y-6 bg-[#4f7fc4] rounded-lg shadow-lg animate__animated animate__zoomIn">
                 <h2 className="text-2xl font-semibold text-center text-[#ffff]">Login your account</h2>
