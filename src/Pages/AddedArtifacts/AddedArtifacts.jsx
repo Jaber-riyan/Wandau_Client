@@ -8,7 +8,7 @@ import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
 import Helmet from 'react-helmet'
 
 const AddedArtifacts = () => {
-    const axiosInstanceSecure = UseAxiosSecure();
+    const axiosInstanceSecure = UseAxiosSecure()
     const axiosInstanceNormal = UseAxiosNormal();
     const { user } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +53,7 @@ const AddedArtifacts = () => {
         }, 3000);
         return () => clearTimeout(timer);
     }, []);
-    
+
     if (isLoading) {
         return (
             <div className='md:w-[80%] mx-auto mt-9'>
