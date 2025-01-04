@@ -48,7 +48,7 @@ const FeaturedArtifacts = () => {
             </div>
             <div className='flex justify-center'>
                 <Link to={'/all-artifacts'} className="bg-blue-500 text-white text-sm px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300">
-                    All Artifacts
+                    See All
                 </Link>
             </div>
         </div>

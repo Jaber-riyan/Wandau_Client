@@ -6,6 +6,9 @@ const Footer = () => {
     return (
         <footer className="bg-gray-100 py-10 text-gray-700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-center mb-10">
+                    <img className="w-48" src="https://i.ibb.co.com/W5mf58S/logo.png" alt="" />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* About Museum Section */}
                     <div>
@@ -34,7 +37,7 @@ const Footer = () => {
                                 </Link>
                             </li>
                         </ul>
-                    </div>
+                    </div
 
                     {/* Connect Us Section */}
                     <div>
