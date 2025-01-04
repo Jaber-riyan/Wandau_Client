@@ -37,7 +37,7 @@ const Footer = () => {
                                 </Link>
                             </li>
                         </ul>
-                    </div
+                    </div>
 
                     {/* Connect Us Section */}
                     <div>
