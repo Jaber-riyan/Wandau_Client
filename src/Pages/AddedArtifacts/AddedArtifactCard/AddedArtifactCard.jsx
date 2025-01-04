@@ -36,14 +36,16 @@ const AddedArtifactCard = ({ artifact, handleDelete }) => {
                 {/* Like Count and View Button */}
                 <div className="flex items-center justify-between mt-4">
                     <div className="flex items-center space-x-2">
-                        <FaHeart className="text-red-500" />
-                        <span className="text-gray-700 font-medium">{likeCount}</span>
+                        <Link to={`/liked-persons/${_id}`} className="flex gap-2 hover:underline hover:text-blue-400 items-center text-red-600">
+                            <FaHeart />
+                            <span className="text-gray-700 font-medium">{likeCount}</span>
+                        </Link>
                     </div>
                     <div className="flex gap-3">
                         <Link to={`/update-artifact/${_id}`} className="bg-blue-400 text-white text-sm px-4 py-2 rounded hover:bg-blue-500 transition-colors duration-300">
                             Update
                         </Link>
-                        <Link onClick={()=> handleDelete(_id)} className="bg-red-400 text-white text-sm px-4 py-2 rounded hover:bg-red-500 transition-colors duration-300">
+                        <Link onClick={() => handleDelete(_id)} className="bg-red-400 text-white text-sm px-4 py-2 rounded hover:bg-red-500 transition-colors duration-300">
                             Delete
                         </Link>
                     </div>

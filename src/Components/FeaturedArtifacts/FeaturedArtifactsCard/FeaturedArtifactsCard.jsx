@@ -37,8 +37,10 @@ const FeaturedArtifactsCard = ({ artifact, handleLike }) => {
                 {/* Like Count and View Button */}
                 <div className="flex items-center justify-between mt-4">
                     <div className="flex items-center space-x-2">
-                        <FaHeart className="text-red-500" />
-                        <span className="text-gray-700 font-medium">{likeCount}</span>
+                        <Link to={`/liked-persons/${_id}`} className="flex gap-2 hover:underline hover:text-blue-400 items-center text-red-600">
+                            <FaHeart />
+                            <span className="text-gray-700 font-medium">{likeCount}</span>
+                        </Link>
                         <span onClick={() => handleLike(_id)} className='ml-8'>
                             <button className="bg-blue-700 text-white text-sm px-5 py-2 rounded hover:bg-blue-800 transition-colors duration-300">
                                 Like

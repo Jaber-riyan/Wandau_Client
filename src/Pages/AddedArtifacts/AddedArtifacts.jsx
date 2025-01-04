@@ -23,12 +23,6 @@ const AddedArtifacts = () => {
             })
     }, [axiosInstanceSecure, user.email, user.displayName])
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
-        return () => clearTimeout(timer);
-    }, []);
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -53,6 +47,13 @@ const AddedArtifacts = () => {
         });
     }
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, []);
+    
     if (isLoading) {
         return (
             <div className='md:w-[80%] mx-auto mt-9'>

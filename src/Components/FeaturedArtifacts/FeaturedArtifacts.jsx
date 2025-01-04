@@ -12,6 +12,7 @@ const FeaturedArtifacts = () => {
     const axiosInstanceSecure = UseAxiosSecure();
     const [isLoading, setIsLoading] = useState(true);
     const [artifacts, setArtifacts] = useState([]);
+    const { user } = useAuth();
 
     useEffect(() => {
         axiosInstanceNormal.get('/featured-artifacts')
@@ -21,11 +22,10 @@ const FeaturedArtifacts = () => {
             })
     }, [axiosInstanceNormal])
 
-    const { user } = useAuth();
 
     const handleLike = (id) => {
         // console.log(id);
-        const body = { likeArtifact: id, user: user?.email }
+        const body = { likeArtifact: id, user: user?.email, userName : user?.displayName }
         axiosInstanceSecure.post(`/like/${id}?email=${user.email}`, body)
             .then(res => {
                 // console.log(res.data.status);

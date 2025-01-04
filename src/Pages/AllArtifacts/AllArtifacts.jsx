@@ -30,7 +30,7 @@ const AllArtifacts = () => {
 
     const handleLike = (id) => {
         // console.log(id);
-        const body = { likeArtifact: id, user: user?.email }
+        const body = { likeArtifact: id, user: user?.email, userName : user?.displayName }
         axiosInstanceSecure.post(`/like/${id}?email=${user.email}`, body)
             .then(res => {
                 // console.log(res.data.status);

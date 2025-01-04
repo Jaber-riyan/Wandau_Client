@@ -16,7 +16,7 @@ function ArtifactDetail() {
 
     const handleLike = () => {
         console.log(data._id);
-        const body = { likeArtifact: data?._id, user: user?.email }
+        const body = { likeArtifact: data?._id, user: user?.email, userName: user?.displayName }
         axiosInstanceSecure.post(`/like/${data._id}?email=${user.email}`, body)
             .then(res => {
                 // console.log(res.data.status);
@@ -45,7 +45,7 @@ function ArtifactDetail() {
                 <img
                     src={data.artifactImage}
                     alt={data.artifactName}
-                    className="w-full object-cover"
+                    className="h-96 w-full object-cover"
                 />
                 <div className="p-6">
                     <h1 className="text-2xl font-bold mb-4 text-center">
@@ -81,8 +81,12 @@ function ArtifactDetail() {
                             <span className="font-semibold">Email:</span> {data.email}
                         </div>
                         <div className="flex items-center">
-                            <FaHeart className="mr-2 text-pink-500" />
-                            <span className="font-semibold">Likes:</span> <span> {data.likeCount}</span> <span className='ml-5'><button onClick={handleLike} className="bg-blue-700 text-white text-sm px-5 py-2 rounded hover:bg-blue-800 transition-colors duration-300">Like</button></span>
+                            <Link to={`/liked-persons/${data?._id}`} className="flex gap-2 hover:underline hover:text-blue-400 items-center text-red-600">
+                                <FaHeart  />
+                                <span className="font-semibold">Likes:</span>
+                                <span> {data.likeCount}</span>
+                            </Link>
+                            <span className='ml-5'><button onClick={handleLike} className="bg-blue-700 text-white text-sm px-5 py-2 rounded hover:bg-blue-800 transition-colors duration-300">Like</button></span>
                         </div>
                     </div>
                     <div className="mt-4">
