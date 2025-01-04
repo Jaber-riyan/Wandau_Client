@@ -11,7 +11,7 @@ const AllArtifacts = () => {
     const axiosInstanceNormal = UseAxiosNormal();
     const axiosInstanceSecure = UseAxiosSecure();
     const [artifacts, setArtifacts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true)
     const { user } = useAuth();
 
     useEffect(() => {
