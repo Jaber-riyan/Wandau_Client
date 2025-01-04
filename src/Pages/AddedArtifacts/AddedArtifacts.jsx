@@ -13,7 +13,7 @@ const AddedArtifacts = () => {
 
 
     useEffect(() => {
-        axiosInstanceSecure.get(`/user-added-artifacts/${user.email}/${user.displayName}`)
+        axiosInstanceSecure.get(`/user-added-artifacts/${user.email}`)
             .then(res => {
                 // console.log(res.data.data);
                 setAddedArtifacts(res.data.data);

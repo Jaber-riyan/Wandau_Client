@@ -3,9 +3,13 @@ import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
 import ReactLoading from 'react-loading';
 import FeaturedArtifactsCard from './FeaturedArtifactsCard/FeaturedArtifactsCard';
 import { Link } from 'react-router-dom';
+import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
+import useAuth from '../../Hooks/UseAuth/UseAuth';
+import { toast } from 'react-toastify';
 
 const FeaturedArtifacts = () => {
     const axiosInstanceNormal = UseAxiosNormal();
+    const axiosInstanceSecure = UseAxiosSecure();
     const [isLoading, setIsLoading] = useState(true);
     const [artifacts, setArtifacts] = useState([]);
 
@@ -13,9 +17,36 @@ const FeaturedArtifacts = () => {
         axiosInstanceNormal.get('/featured-artifacts')
             .then(res => {
                 setArtifacts(res.data.data);
-                console.log(res.data.data);
+                // console.log(res.data.data);
             })
     }, [axiosInstanceNormal])
+
+    const { user } = useAuth();
+
+    const handleLike = (id) => {
+        // console.log(id);
+        const body = { likeArtifact: id, user: user?.email }
+        axiosInstanceSecure.post(`/like/${id}?email=${user.email}`, body)
+            .then(res => {
+                // console.log(res.data.status);
+                if (!res.data.status) {
+                    toast.info("You Already Liked This Artifact")
+                    return
+                }
+                else {
+                    axiosInstanceSecure.patch(`/like/${id}`)
+                        .then(res => {
+                            console.log(res.data);
+                        })
+                    axiosInstanceNormal.get('/featured-artifacts')
+                        .then(res => {
+                            setArtifacts(res.data.data);
+                            console.log(res.data.data);
+                        })
+                }
+            })
+
+    }
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -43,7 +74,7 @@ const FeaturedArtifacts = () => {
 
             <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
                 {
-                    artifacts.length > 0 && artifacts.map(artifact => <FeaturedArtifactsCard key={artifact._id} artifact={artifact}></FeaturedArtifactsCard>)
+                    artifacts.length > 0 && artifacts.map(artifact => <FeaturedArtifactsCard key={artifact._id} artifact={artifact} handleLike={handleLike}></FeaturedArtifactsCard>)
                 }
             </div>
             <div className='flex justify-center'>
