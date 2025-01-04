@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useAuth from "../../Hooks/UseAuth/UseAuth";
 import Swal from "sweetalert2";
 import UseAxiosNormal from "../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal";
+import Helmet from 'react-helmet';
 
 const AddArtifact = () => {
     const { user } = useAuth();
@@ -52,6 +53,7 @@ const AddArtifact = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
+            <Helmet><title>Add Artifacts | Wandau</title></Helmet>
             <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl">
                 <h1 className="text-2xl font-bold text-center text-gray-700 mb-6 animate__animated animate__fadeInDown">
                     Add a New Artifact

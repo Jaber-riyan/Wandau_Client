@@ -6,6 +6,7 @@ import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import useAuth from '../../Hooks/UseAuth/UseAuth';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import Helmet from 'react-helmet'
 
 function ArtifactDetail() {
     const loaderData = useLoaderData();
@@ -39,6 +40,7 @@ function ArtifactDetail() {
 
     return (
         <div className="max-w-4xl mx-auto p-4 animate__animated animate__fadeIn">
+            <Helmet><title>Artifacts Detail | Wandau</title></Helmet>
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
                 <img
                     src={data.artifactImage}

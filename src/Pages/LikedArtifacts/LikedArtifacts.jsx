@@ -5,7 +5,7 @@ import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
 import FeaturedArtifactsCard from '../../Components/FeaturedArtifacts/FeaturedArtifactsCard/FeaturedArtifactsCard';
 import { toast } from 'react-toastify';
 import ReactLoading from 'react-loading';
-
+import Helmet from 'react-helmet'
 
 
 const LikedArtifacts = () => {
@@ -41,6 +41,7 @@ const LikedArtifacts = () => {
     if (isLoading) {
         return (
             <div className='md:w-[80%] mx-auto mt-9'>
+                <Helmet><title>Liked Artifacts | Wandau</title></Helmet>
                 <h2 className='text-3xl font-bold mb-5'>Liked Artifacts</h2>
                 <div className="min-h-screen flex flex-col items-center justify-center">
                     <div className="text-2xl font-bold text-blue-600 animate__animated animate__fadeIn animate__slower">
@@ -53,6 +54,7 @@ const LikedArtifacts = () => {
 
     return (
         <div className="p-4 md:w-[80%] mx-auto mt-9">
+            <Helmet><title>Liked Artifacts | Wandau</title></Helmet>
             <h1 className="text-3xl font-bold mb-4">Liked Artifacts</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {likedArtifacts.length > 0 ? (

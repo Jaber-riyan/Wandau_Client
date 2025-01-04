@@ -5,6 +5,7 @@ import ReactLoading from 'react-loading';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import useAuth from '../../Hooks/UseAuth/UseAuth';
 import { toast } from 'react-toastify';
+import Helmet from 'react-helmet'
 
 const AllArtifacts = () => {
     const axiosInstanceNormal = UseAxiosNormal();
@@ -55,6 +56,7 @@ const AllArtifacts = () => {
     if (isLoading) {
         return (
             <div className='md:w-[80%] mx-auto mt-9'>
+                <Helmet><title>All Artifacts | Wandau</title></Helmet>
                 <h2 className='text-3xl font-bold mb-5'>All Artifacts</h2>
                 <div className="min-h-screen flex flex-col items-center justify-center">
                     <div className="text-2xl font-bold text-blue-600 animate__animated animate__fadeIn animate__slower">
@@ -66,7 +68,11 @@ const AllArtifacts = () => {
     }
     return (
         <div className='md:w-[90%] mx-auto mb-6'>
+            <Helmet><title>All Artifacts | Wandau</title></Helmet>
             <h2 className='text-3xl font-bold mb-5 mt-4'>All Artifacts</h2>
+            <div>
+                <input type="text" placeholder="Type name artifacts...." className="input input-bordered w-full max-w-xs mb-5" />
+            </div>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
                 {
                     artifacts.length > 0 && artifacts.map(artifact => <FeaturedArtifactsCard key={artifact._id} artifact={artifact} handleLike={handleLike}></FeaturedArtifactsCard>)

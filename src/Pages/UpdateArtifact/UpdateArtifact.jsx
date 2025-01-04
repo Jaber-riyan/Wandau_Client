@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import UseAxiosNormal from "../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactLoading from 'react-loading';
+import Helmet from 'react-helmet'
+
 
 const UpdateArtifact = () => {
     const axiosInstanceNormal = UseAxiosNormal();
@@ -63,6 +65,7 @@ const UpdateArtifact = () => {
     if (isLoading) {
         return (
             <div className='md:w-[80%] mx-auto mt-9'>
+                <Helmet><title>Update Artifact | Wandau</title></Helmet>
                 <h2 className='text-3xl font-bold mb-5'>My Added Artifacts</h2>
                 <div className="min-h-screen flex flex-col items-center justify-center">
                     <div className="text-2xl font-bold text-blue-600 animate__animated animate__fadeIn animate__slower">
@@ -75,6 +78,7 @@ const UpdateArtifact = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
+            <Helmet><title>Update Artifact | Wandau</title></Helmet>
             <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl">
                 <h1 className="text-2xl font-bold text-center text-gray-700 mb-6 animate__animated animate__fadeInDown">
                     Update Artifact

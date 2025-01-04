@@ -5,6 +5,7 @@ import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import AddedArtifactCard from './AddedArtifactCard/AddedArtifactCard';
 import Swal from 'sweetalert2';
 import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
+import Helmet from 'react-helmet'
 
 const AddedArtifacts = () => {
     const axiosInstanceSecure = UseAxiosSecure();
@@ -55,6 +56,7 @@ const AddedArtifacts = () => {
     if (isLoading) {
         return (
             <div className='md:w-[80%] mx-auto mt-9'>
+                <Helmet><title>Added Artifacts | Wandau</title></Helmet>
                 <h2 className='text-3xl font-bold mb-5'>My Added Artifacts</h2>
                 <div className="min-h-screen flex flex-col items-center justify-center">
                     <div className="text-2xl font-bold text-blue-600 animate__animated animate__fadeIn animate__slower">
@@ -66,7 +68,8 @@ const AddedArtifacts = () => {
     }
 
     return (
-        <div className='md:w-[80%] mx-auto mt-9'>
+        <div className='md:w-[80%] mx-auto mt-9 mb-10'>
+            <Helmet><title>Added Artifacts | Wandau</title></Helmet>
             <h2 className='text-3xl font-bold mb-5'>My Added Artifacts</h2>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
                 {
