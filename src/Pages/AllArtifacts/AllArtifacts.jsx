@@ -15,7 +15,7 @@ const AllArtifacts = () => {
     const { user } = useAuth();
 
     useEffect(() => {
-        axiosInstanceNormal.get('/artifacts'
+        axiosInstanceNormal.get('/artifacts')
             .then(res => {
                 console.log(res.data.data);
                 setArtifacts(res.data.data);
