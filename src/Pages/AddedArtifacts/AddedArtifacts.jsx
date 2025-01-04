@@ -3,9 +3,12 @@ import useAuth from '../../Hooks/UseAuth/UseAuth';
 import ReactLoading from 'react-loading';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import AddedArtifactCard from './AddedArtifactCard/AddedArtifactCard';
+import Swal from 'sweetalert2';
+import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
 
 const AddedArtifacts = () => {
     const axiosInstanceSecure = UseAxiosSecure();
+    const axiosInstanceNormal = UseAxiosNormal();
     const { user } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
     const [addedArtifacts, setAddedArtifacts] = useState([]);
@@ -22,9 +25,32 @@ const AddedArtifacts = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 3000);
         return () => clearTimeout(timer);
     }, []);
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Do you want to delete this artifact?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: `No`
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axiosInstanceNormal.delete(`/artifact-delete/${id}`)
+                    .then(res => {
+                        console.log(res.data);
+                        const remaining = addedArtifacts.filter(artifact => artifact._id !== id);
+                        setAddedArtifacts(remaining);
+                        Swal.fire("Delete!", "", "success");
+                    })
+            } else if (result.isDenied) {
+                Swal.fire("Not Delete", "", "info");
+            }
+        });
+    }
 
     if (isLoading) {
         return (
@@ -44,7 +70,8 @@ const AddedArtifacts = () => {
             <h2 className='text-3xl font-bold mb-5'>My Added Artifacts</h2>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
                 {
-                    addedArtifacts.length > 0 ? addedArtifacts.map(artifact => <AddedArtifactCard key={artifact._id} artifact={artifact}></AddedArtifactCard>) :
+                    addedArtifacts.length > 0 ? addedArtifacts.map(artifact => <AddedArtifactCard key={artifact._id} artifact={artifact} handleDelete={handleDelete}></AddedArtifactCard>)
+                        :
                         <h2 className='text-3xl font-bold mb-5 text-red-600'>No Added Artifact :(</h2>
                 }
             </div>

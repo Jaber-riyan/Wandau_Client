@@ -3,7 +3,7 @@ import { FaHeart, FaEye } from "react-icons/fa";
 import { Link, useLocation, useParams } from "react-router-dom";
 import useAuth from "../../../Hooks/UseAuth/UseAuth";
 
-const AddedArtifactCard = ({ artifact }) => {
+const AddedArtifactCard = ({ artifact, handleDelete }) => {
     const {
         artifactName,
         artifactImage,
@@ -43,7 +43,7 @@ const AddedArtifactCard = ({ artifact }) => {
                         <Link to={`/update-artifact/${_id}`} className="bg-blue-400 text-white text-sm px-4 py-2 rounded hover:bg-blue-500 transition-colors duration-300">
                             Update
                         </Link>
-                        <Link className="bg-red-400 text-white text-sm px-4 py-2 rounded hover:bg-red-500 transition-colors duration-300">
+                        <Link onClick={()=> handleDelete(_id)} className="bg-red-400 text-white text-sm px-4 py-2 rounded hover:bg-red-500 transition-colors duration-300">
                             Delete
                         </Link>
                     </div>
