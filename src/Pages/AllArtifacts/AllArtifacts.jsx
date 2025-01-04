@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react';
 import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
 import FeaturedArtifactsCard from '../../Components/FeaturedArtifacts/FeaturedArtifactsCard/FeaturedArtifactsCard';
 import ReactLoading from 'react-loading';
+import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
+import useAuth from '../../Hooks/UseAuth/UseAuth';
+import { toast } from 'react-toastify';
 
 const AllArtifacts = () => {
     const axiosInstanceNormal = UseAxiosNormal();
+    const axiosInstanceSecure = UseAxiosSecure();
     const [artifacts, setArtifacts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { user } = useAuth();
 
     useEffect(() => {
         axiosInstanceNormal.get('/artifacts')
@@ -21,6 +26,31 @@ const AllArtifacts = () => {
         }, 2000);
         return () => clearTimeout(timer);
     }, []);
+
+    const handleLike = (id) => {
+        // console.log(id);
+        const body = { likeArtifact: id, user: user?.email }
+        axiosInstanceSecure.post(`/like/${id}?email=${user.email}`, body)
+            .then(res => {
+                // console.log(res.data.status);
+                if (!res.data.status) {
+                    toast.info("You Already Liked This Artifact")
+                    return
+                }
+                else {
+                    axiosInstanceSecure.patch(`/like/${id}`)
+                        .then(res => {
+                            console.log(res.data);
+                        })
+                    axiosInstanceNormal.get('/artifacts')
+                        .then(res => {
+                            setArtifacts(res.data.data);
+                            console.log(res.data.data);
+                        })
+                }
+            })
+
+    }
 
     if (isLoading) {
         return (
@@ -39,7 +69,7 @@ const AllArtifacts = () => {
             <h2 className='text-3xl font-bold mb-5 mt-4'>All Artifacts</h2>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
                 {
-                    artifacts.length > 0 && artifacts.map(artifact => <FeaturedArtifactsCard key={artifact._id} artifact={artifact}></FeaturedArtifactsCard>)
+                    artifacts.length > 0 && artifacts.map(artifact => <FeaturedArtifactsCard key={artifact._id} artifact={artifact} handleLike={handleLike}></FeaturedArtifactsCard>)
                 }
             </div>
         </div>
