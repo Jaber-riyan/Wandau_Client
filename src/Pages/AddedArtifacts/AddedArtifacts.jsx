@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
 import useAuth from '../../Hooks/UseAuth/UseAuth';
 import ReactLoading from 'react-loading';
-import FeaturedArtifactsCard from '../../Components/FeaturedArtifacts/FeaturedArtifactsCard/FeaturedArtifactsCard';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
+import AddedArtifactCard from './AddedArtifactCard/AddedArtifactCard';
 
 const AddedArtifacts = () => {
     const axiosInstanceSecure = UseAxiosSecure();
@@ -45,7 +44,8 @@ const AddedArtifacts = () => {
             <h2 className='text-3xl font-bold mb-5'>My Added Artifacts</h2>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
                 {
-                    addedArtifacts.length > 0 && addedArtifacts.map(artifact => <FeaturedArtifactsCard key={artifact._id} artifact={artifact}></FeaturedArtifactsCard>)
+                    addedArtifacts.length > 0 ? addedArtifacts.map(artifact => <AddedArtifactCard key={artifact._id} artifact={artifact}></AddedArtifactCard>) :
+                        <h2 className='text-3xl font-bold mb-5 text-red-600'>No Added Artifact :(</h2>
                 }
             </div>
         </div>

@@ -24,13 +24,13 @@ const AddArtifact = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // if (!formData.artifactImage.match(/^https?:\/\/.*\.(jpg|jpeg|png|gif|webp)$/)) {
-        //     Swal.fire({
-        //         title: "Please enter a valid image URL",
-        //         icon: 'info'
-        //     })
-        //     return;
-        // }
+        if (!formData.artifactImage.match(/^https?:\/\/.*\.(jpg|jpeg|png|gif|webp)$/)) {
+            Swal.fire({
+                title: "Please enter a valid image URL",
+                icon: 'info'
+            })
+            return;
+        }
 
         const addData = { ...formData, artifactAddedBy: user?.displayName, email: user?.email, likeCount: 0 };
         console.log(addData);

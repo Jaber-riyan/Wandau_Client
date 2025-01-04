@@ -41,7 +41,7 @@ const LikedArtifacts = () => {
     if (isLoading) {
         return (
             <div className='md:w-[80%] mx-auto mt-9'>
-                <h2 className='text-3xl font-bold mb-5'>Featured Artifacts</h2>
+                <h2 className='text-3xl font-bold mb-5'>Liked Artifacts</h2>
                 <div className="min-h-screen flex flex-col items-center justify-center">
                     <div className="text-2xl font-bold text-blue-600 animate__animated animate__fadeIn animate__slower">
                         <ReactLoading type="spin" color="red" />
@@ -52,8 +52,8 @@ const LikedArtifacts = () => {
     }
 
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Liked Artifacts</h1>
+        <div className="p-4 md:w-[80%] mx-auto mt-9">
+            <h1 className="text-3xl font-bold mb-4">Liked Artifacts</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {likedArtifacts.length > 0 ? (
                     likedArtifacts.map(likeArtifact => (
@@ -81,11 +81,9 @@ const ArtifactLoader = ({ artifactId, handleLike, axiosInstance }) => {
             .catch(err => console.error("Error fetching artifact:", err));
     }, [artifactId, axiosInstance]);
 
-    return artifact ? (
+    return artifact && (
         <FeaturedArtifactsCard handleLike={handleLike} artifact={artifact} />
-    ) : (
-        <div>Loading...</div>
-    );
+    )
 };
 
 export default LikedArtifacts;
