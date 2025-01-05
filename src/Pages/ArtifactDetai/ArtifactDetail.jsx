@@ -43,7 +43,7 @@ function ArtifactDetail() {
             <Helmet><title>Artifacts Detail | Wandau</title></Helmet>
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
                 <img
-                    src={data.artifactImage}
+                    src={data?.artifactImage}
                     alt={data.artifactName}
                     className="h-96 w-full object-cover"
                 />
