@@ -1,8 +1,8 @@
-# Historical Artifacts Tracker 🏺
+# Wandau 🏺
 
-**Live Site URL**: [VisaSphere Live Site](https://wandau.netlify.app/)
+**Live Site URL**: [Wandau Live Site](https://wandau.netlify.app/)
 
-Historical Artifacts Tracker is a responsive and user-friendly web application designed to manage and explore details about remarkable historical artifacts like the Rosetta Stone and Antikythera Mechanism. Users can browse detailed information, add new artifacts, and interact through likes. The platform offers private routes for managing personal entries and favorite artifacts, ensuring a rich and personalized user experience.
+Wandau is a responsive and user-friendly web application designed to manage and explore details about remarkable historical artifacts like the Rosetta Stone and Antikythera Mechanism. Users can browse detailed information, add new artifacts, and interact through likes. The platform offers private routes for managing personal entries and favorite artifacts, ensuring a rich and personalized user experience.
 
 ---
 
