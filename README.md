@@ -72,6 +72,6 @@ Wandau is a responsive and user-friendly web application designed to manage and 
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/visasphere.git
-   cd visasphere
+   git clone https://github.com/Jaber-riyan/Wandau_Client.git
+   cd Wandau_Client
    ```
