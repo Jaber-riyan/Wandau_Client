@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { GoogleAuthProvider } from "firebase/auth";
 import auth from '../Firebase/Firebase.config';
 import axios from 'axios';
+import UseAxiosSecure from '../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 
 
 const Authentication = ({ children }) => {
@@ -39,14 +40,14 @@ const Authentication = ({ children }) => {
             setUser(currentUser);
             if (currentUser?.email) {
                 const user = { email: currentUser.email }
-                axios.post(`https://wandau-server.vercel.app/jwt/create`, user, { withCredentials: true })
+                axios.post(`http://localhost:5000/jwt/create`, user, { withCredentials: true })
                     .then(data => {
                         console.log(data.data);
                         setLoading(false);
                     })
             }
             else {
-                axios.post(`https://wandau-server.vercel.app/jwt/remove`, {}, { withCredentials: true })
+                axios.post(`http://localhost:5000/jwt/remove`, {}, { withCredentials: true })
                     .then(res => {
                         console.log(res.data);
                         setLoading(false);

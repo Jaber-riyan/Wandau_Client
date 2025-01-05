@@ -12,7 +12,7 @@ const FeaturedArtifactsCard = ({ artifact, handleLike }) => {
         _id
     } = artifact;
     const param = useLocation();
-    console.log(param?.pathname);
+    // console.log(param?.pathname);
 
 
     return (

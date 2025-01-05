@@ -47,7 +47,7 @@ const router = createBrowserRouter([
             {
                 path: '/view-artifact/:id',
                 element: <PrivateRoutes><ArtifactDetail></ArtifactDetail></PrivateRoutes>,
-                loader: ({ params }) => fetch(`https://wandau-server.vercel.app/artifact/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/artifact/${params.id}`)
             },
             {
                 path: '/my-artifacts',
