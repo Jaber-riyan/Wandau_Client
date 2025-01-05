@@ -1,6 +1,8 @@
 import React from 'react';
 import Banner from '../../Components/Banner/Banner';
 import FeaturedArtifacts from '../../Components/FeaturedArtifacts/FeaturedArtifacts';
+import ArtInspiration from '../../Components/ArtInspiration/ArtInspiration';
+import SignUpLatestNews from '../../Components/SignUpLatestNews/SignUpLatestNews';
 
 const Home = () => {
     return (
@@ -10,6 +12,12 @@ const Home = () => {
             </header>
             <section className='mb-6'>
                 <FeaturedArtifacts></FeaturedArtifacts>
+            </section>
+            <section>
+                <ArtInspiration></ArtInspiration>
+            </section>
+            <section>
+                <SignUpLatestNews></SignUpLatestNews>
             </section>
         </div>
     );
