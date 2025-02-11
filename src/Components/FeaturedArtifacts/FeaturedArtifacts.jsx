@@ -67,7 +67,7 @@ const FeaturedArtifacts = () => {
                 </h2>
             </div>
 
-            {artifacts.length > 0 ? (
+            {artifacts ? (
                 <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
                     {artifacts.map(artifact => (
                         <FeaturedArtifactsCard key={artifact._id} artifact={artifact} handleLike={handleLike} />
