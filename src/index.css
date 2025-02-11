@@ -10,3 +10,7 @@
 .dm-sans-font > {
   font-family: "DM Sans", serif;
 }
+
+.heading{
+  text-shadow: 0 0 20px #fff;
+}

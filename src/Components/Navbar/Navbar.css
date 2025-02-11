@@ -1,4 +1,10 @@
+/* Default active color */
 .active {
-    color: #0040ffbb;
+    color: #0040ffbb; /* Light mode active color */
     font-weight: bolder;
+}
+
+/* Dark mode active color */
+[data-theme="dark"] .active {
+    color: #8ab4f8; /* Adjusted for better visibility */
 }

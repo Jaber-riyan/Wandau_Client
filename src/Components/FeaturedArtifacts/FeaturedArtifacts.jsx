@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
-import ReactLoading from 'react-loading';
 import FeaturedArtifactsCard from './FeaturedArtifactsCard/FeaturedArtifactsCard';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import useAuth from '../../Hooks/UseAuth/UseAuth';
 import { toast } from 'react-toastify';
+import Loading from '../../Loading/Loading';
 
 const FeaturedArtifacts = () => {
     const axiosInstanceNormal = UseAxiosNormal();
@@ -13,6 +13,7 @@ const FeaturedArtifacts = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [artifacts, setArtifacts] = useState([]);
     const { user } = useAuth();
+    const navigate = useNavigate()
 
     useEffect(() => {
         axiosInstanceNormal.get('/featured-artifacts')
@@ -25,7 +26,11 @@ const FeaturedArtifacts = () => {
 
     const handleLike = (id) => {
         // console.log(id);
-        const body = { likeArtifact: id, user: user?.email, userName : user?.displayName }
+        if(!user) {
+            toast.info("Please login first!")
+            return navigate("/login")
+        }
+        const body = { likeArtifact: id, user: user?.email, userName: user?.displayName }
         axiosInstanceSecure.post(`/like/${id}?email=${user.email}`, body)
             .then(res => {
                 // console.log(res.data.status);
@@ -57,28 +62,25 @@ const FeaturedArtifacts = () => {
 
     if (isLoading) {
         return (
-            <div className='md:w-[80%] mx-auto mt-9'>
-                <h2 className='text-3xl font-bold mb-5'>Featured Artifacts</h2>
-                <div className="min-h-screen flex flex-col items-center justify-center">
-                    <div className="text-2xl font-bold text-blue-600 animate__animated animate__fadeIn animate__slower">
-                        <ReactLoading type="spin" color="red" />
-                    </div>
-                </div>
-            </div>
+            <Loading text={"Featured Artifacts"}></Loading>
         );
     }
 
     return (
-        <div className='md:w-[90%] mx-auto space-y-4'>
-            <h2 className='text-3xl font-bold mb-5'>Featured Artifacts</h2>
+        <div className='w-[90%] mx-auto space-y-4'>
+            <h2 className='text-3xl font-bold mb-5 dark:text-white heading'>Featured Artifacts</h2>
 
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
+            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
                 {
                     artifacts.length > 0 && artifacts.map(artifact => <FeaturedArtifactsCard key={artifact._id} artifact={artifact} handleLike={handleLike}></FeaturedArtifactsCard>)
                 }
             </div>
             <div className='flex justify-center'>
-                <Link to={'/all-artifacts'} className="bg-blue-500 text-white text-sm px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300">
+                <Link to={'/all-artifacts'} className="mt-7 px-9 py-2 ml-2 bg-[#0ef] dark:bg-[#00bcd4] rounded-3xl text-black dark:text-white font-bold
+                                shadow-[0_0_5px_#0ef,0_0_25px_#0ef] dark:shadow-[0_0_5px_#00bcd4,0_0_25px_#00bcd4]
+                                hover:bg-[#00ffff] dark:hover:bg-[#00ffff] hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00ffff] 
+                                dark:hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00ffff] 
+                                transition-all duration-300 animate__animated animate__heartBeat animate__infinite">
                     See All
                 </Link>
             </div>

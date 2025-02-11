@@ -6,7 +6,7 @@ import Footer from '../../Components/Footer/Footer';
 
 const HomeLayout = () => {
     return (
-        <div className='dm-sans-font'>
+        <div className='dm-sans-font dark:bg-[#1e2a47]'>
             <Helmet><title>Home | Wandau</title></Helmet>
             <header className='sticky top-0 z-10 backdrop-blur-sm bg-transparent'>
                 <Navbar></Navbar>
