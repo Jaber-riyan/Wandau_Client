@@ -8,7 +8,7 @@ const HomeLayout = () => {
     return (
         <div className='dm-sans-font'>
             <Helmet><title>Home | Wandau</title></Helmet>
-            <header className='sticky top-0 z-10 border-2 backdrop-blur-sm bg-transparent'>
+            <header className='sticky top-0 z-10 backdrop-blur-sm bg-transparent'>
                 <Navbar></Navbar>
             </header>
             <Outlet></Outlet>

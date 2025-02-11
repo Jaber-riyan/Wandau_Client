@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { toast } from 'react-toastify';
@@ -8,14 +8,28 @@ import { AuthContext } from '../../Authentication/Authentication';
 const Navbar = () => {
     const navigate = useNavigate();
     const { user, handleLogout, setUser } = useContext(AuthContext);
-    // console.log(user);
+
+    // Theme State
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+    // Apply Theme
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    // Toggle Theme Function
+    const toggleTheme = () => {
+        setTheme(theme === 'light' ? 'dark' : 'light');
+    };
+
     const logoutHandler = () => {
         handleLogout()
-            .then(res => {
+            .then(() => {
                 Swal.fire({
                     title: "Logout Successfully",
                     icon: 'success'
-                })
+                });
                 setUser(null);
                 navigate('/login');
             })
@@ -26,9 +40,8 @@ const Navbar = () => {
                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                     .join(" ");
                 toast.error(formattedError);
-            })
-
-    }
+            });
+    };
 
     const links = <>
         <NavLink to={'/'}
@@ -36,11 +49,11 @@ const Navbar = () => {
             Home
         </NavLink>
         <NavLink to={'/all-artifacts'}
-            className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
+            className="hover:text-[#4b4bed] dark:text-white text-black font-[700] text-[14px] cursor-pointer">
             All Artifacts
         </NavLink>
         <NavLink to={'/add-artifacts'}
-            className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
+            className="hover:text-[#4b4bed] text-black dark:text-white font-[700] text-[14px] cursor-pointer">
             Add Artifacts
         </NavLink>
 
@@ -51,8 +64,7 @@ const Navbar = () => {
                         className="hover:text-[#4b4bed] text-black font-[700] text-[14px] cursor-pointer">
                         Logout
                     </Link>
-                    <div
-                        className="cursor-pointer">
+                    <div className="cursor-pointer">
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn m-1 text-black font-[700] text-[14px]">My Profile </div>
                             <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
@@ -61,8 +73,7 @@ const Navbar = () => {
                             </ul>
                         </div>
                     </div>
-                    <NavLink
-                        className="flex gap-2 justify-center items-center text-[14px]">
+                    <NavLink className="flex gap-2 justify-center items-center text-[14px]">
                         {user &&
                             <Link to={'/my-profile'} title={`${user.displayName}`}>
                                 <div className="avatar">
@@ -76,7 +87,6 @@ const Navbar = () => {
                                 </div>
                             </Link>}
                     </NavLink>
-
                 </> :
                 <>
                     <NavLink to={'/register'}
@@ -89,17 +99,20 @@ const Navbar = () => {
                     </NavLink>
                 </>
         }
+    </>;
 
-    </>
     return (
         <div>
             <div className='md:w-[80%] mx-auto dm-sans-font'>
                 <nav>
                     <div className="navbar text-black">
                         <div className="navbar-start animate__animated animate__fadeInLeft">
-                            <Link to={'/'}> <img className='md:w-2/6 w-32' src="https://i.ibb.co.com/W5mf58S/logo.png" alt="" /> </Link>
+                            <Link to={'/'}>
+                                <img className='md:w-2/6 w-32' src="https://i.ibb.co.com/W5mf58S/logo.png" alt="Logo" />
+                            </Link>
                         </div>
-                        <div className="navbar-end">
+                        <div className="navbar-end flex items-center gap-4">
+
                             <div className="lg:block hidden animate__animated animate__fadeInRight">
                                 <ul className="menu-horizontal p-2 space-x-3 items-center justify-center">
                                     {links}
@@ -107,25 +120,20 @@ const Navbar = () => {
                             </div>
                             <div className="dropdown">
                                 <div tabIndex="0" role="button" className="btn btn-ghost lg:hidden">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M4 6h16M4 12h8m-8 6h16" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                                     </svg>
                                 </div>
-                                <ul
-                                    tabIndex="0"
-                                    className="menu menu-sm dropdown-content bg-[#ffffff50] rounded-box z-[1] mt-3 w-52 p-2 shadow right-0">
+                                <ul tabIndex="0" className="menu menu-sm dropdown-content bg-[#ffffff50] rounded-box z-[1] mt-3 w-52 p-2 shadow right-0">
                                     {links}
                                 </ul>
                             </div>
+                            {/* Theme Toggle Button */}
+                            <button
+                                onClick={toggleTheme}
+                                className="p-2 text-black font-bold rounded-lg shadow-md bg-gray-200 hover:bg-gray-300 transition">
+                                {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+                            </button>
                         </div>
                     </div>
                 </nav>
