@@ -6,17 +6,20 @@ import router from './Router/Router.jsx'
 import Authentication from './Authentication/Authentication.jsx'
 import 'animate.css';
 import { ToastContainer } from 'react-toastify'
+import ThemeProvider from './ThemeProvider/ThemeProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Authentication>
-      <RouterProvider router={router}></RouterProvider>
-      <ToastContainer position="top-center"
-        autoClose={1500}
-        hideProgressBar={false}
-        closeOnClick={true}
-        pauseOnHover={true}
-        draggable={true} />
+      <ThemeProvider>
+        <RouterProvider router={router}></RouterProvider>
+        <ToastContainer position="top-center"
+          autoClose={1500}
+          hideProgressBar={false}
+          closeOnClick={true}
+          pauseOnHover={true}
+          draggable={true} />
+      </ThemeProvider>
     </Authentication>
   </StrictMode>,
 )

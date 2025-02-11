@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FaUser, FaEnvelope, FaHeart, FaMapMarkerAlt, FaCalendarAlt, FaTools, FaPaintBrush } from 'react-icons/fa';
 import { RiCompassDiscoverFill } from "react-icons/ri";
 import { Link, useLoaderData } from 'react-router-dom';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import useAuth from '../../Hooks/UseAuth/UseAuth';
-import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
-import Helmet from 'react-helmet'
+import Helmet from 'react-helmet';
 
 function ArtifactDetail() {
     const loaderData = useLoaderData();
@@ -15,83 +14,80 @@ function ArtifactDetail() {
     const { user } = useAuth();
 
     const handleLike = () => {
-        console.log(data._id);
-        const body = { likeArtifact: data?._id, user: user?.email, userName: user?.displayName }
+        if (!user) {
+            toast.info("You need to be logged in to like an artifact.");
+            return;
+        }
+        const body = { likeArtifact: data?._id, user: user?.email, userName: user?.displayName };
         axiosInstanceSecure.post(`/like/${data._id}?email=${user.email}`, body)
             .then(res => {
-                // console.log(res.data.status);
                 if (!res.data.status) {
-                    toast.info("You Already Liked This Artifact")
-                    return
+                    toast.info("You Already Liked This Artifact");
+                    return;
                 }
-                else {
-                    axiosInstanceSecure.patch(`/like/${data._id}`)
-                        .then(res => {
-                            console.log(res.data);
-                        })
-                    axiosInstanceSecure.get(`artifact/${data?._id}`)
-                        .then(res => {
-                            setData(res.data.data);
-                        })
-                }
-            })
-
-    }
+                axiosInstanceSecure.patch(`/like/${data._id}`).then(() => {
+                    axiosInstanceSecure.get(`artifact/${data?._id}`).then(res => {
+                        setData(res.data.data);
+                    });
+                });
+            });
+    };
 
     return (
-        <div className="max-w-4xl mx-auto p-4 animate__animated animate__fadeIn">
-            <Helmet><title>Artifacts Detail | Wandau</title></Helmet>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="max-w-5xl mx-auto p-6 animate__animated animate__fadeIn">
+            <Helmet>
+                <title>Artifacts Detail | Wandau</title>
+            </Helmet>
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
                 <img
                     src={data?.artifactImage}
                     alt={data.artifactName}
+                    draggable="false"
+                    onContextMenu={(e)=> e.preventDefault()}
                     className="h-96 w-full object-cover"
                 />
-                <div className="p-6">
-                    <h1 className="text-2xl font-bold mb-4 text-center">
+                <div className="p-8">
+                    <h1 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">
                         {data.artifactName}
                     </h1>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="flex items-center">
-                            <FaPaintBrush className="mr-2 text-blue-500" />
-                            <span className="font-semibold">Type:</span> {data.artifactType}
-                        </div>
-                        <div className="flex items-center">
-                            <FaCalendarAlt className="mr-2 text-green-500" />
-                            <span className="font-semibold">Created At:</span> {data.createdAt}
-                        </div>
-                        <div className="flex items-center">
-                            <FaTools className="mr-2 text-red-500" />
-                            <span className="font-semibold">Discovered At:</span> {data.discoveredAt}
-                        </div>
-                        <div className="flex items-center">
-                            <RiCompassDiscoverFill className="mr-2 text-yellow-500" />
-                            <span className="font-semibold">Discovered By:</span> {data.discoveredBy}
-                        </div>
-                        <div className="flex items-center">
-                            <FaMapMarkerAlt className="mr-2 text-purple-500" />
-                            <span className="font-semibold">Present Location:</span> {data.presentLocation}
-                        </div>
-                        <div className="flex items-center">
-                            <FaUser className="mr-2 text-teal-500" />
-                            <span className="font-semibold">Added By:</span> {data.artifactAddedBy}
-                        </div>
-                        <div className="flex items-center">
-                            <FaEnvelope className="mr-2 text-indigo-500" />
-                            <span className="font-semibold">Email:</span> {data.email}
-                        </div>
-                        <div className="flex items-center">
-                            <Link to={`/liked-persons/${data?._id}`} className="flex gap-2 hover:underline hover:text-blue-400 items-center text-red-600">
-                                <FaHeart  />
-                                <span className="font-semibold">Likes:</span>
-                                <span> {data.likeCount}</span>
-                            </Link>
-                            <span className='ml-5'><button onClick={handleLike} className="bg-blue-700 text-white text-sm px-5 py-2 rounded hover:bg-blue-800 transition-colors duration-300">Like</button></span>
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[{
+                            icon: <FaPaintBrush className="text-blue-500" />, label: "Type", value: data.artifactType
+                        }, {
+                            icon: <FaCalendarAlt className="text-green-500" />, label: "Created At", value: data.createdAt
+                        }, {
+                            icon: <FaTools className="text-red-500" />, label: "Discovered At", value: data.discoveredAt
+                        }, {
+                            icon: <RiCompassDiscoverFill className="text-yellow-500" />, label: "Discovered By", value: data.discoveredBy
+                        }, {
+                            icon: <FaMapMarkerAlt className="text-purple-500" />, label: "Present Location", value: data.presentLocation
+                        }, {
+                            icon: <FaUser className="text-teal-500" />, label: "Added By", value: data.artifactAddedBy
+                        }, {
+                            icon: <FaEnvelope className="text-indigo-500" />, label: "Email", value: data.email
+                        }].map(({ icon, label, value }, index) => (
+                            <div key={index} className="flex items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                                {icon}
+                                <span className="ml-3 text-gray-900 dark:text-gray-200 font-semibold">{label}: </span>
+                                <span className="ml-2 text-gray-700 dark:text-gray-300">{value}</span>
+                            </div>
+                        ))}
                     </div>
-                    <div className="mt-4">
-                        <h2 className="text-lg font-semibold mb-2">Historical Context</h2>
-                        <p className="text-gray-700">{data.historicalContext}</p>
+                    <div className="mt-6 flex items-center gap-8">
+                        <Link to={`/liked-persons/${data?._id}`} className="flex items-center gap-2 text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-500">
+                            <FaHeart className='animate__animated animate__heartBeat animate__infinite' size={20} /> <span>{data.likeCount}</span>
+                        </Link>
+                        <button onClick={handleLike} className="px-9 py-2 ml-2 bg-[#0ef] dark:bg-[#00bcd4] rounded-3xl text-black dark:text-white font-bold
+                                shadow-[0_0_5px_#0ef,0_0_25px_#0ef] dark:shadow-[0_0_5px_#00bcd4,0_0_25px_#00bcd4]
+                                hover:bg-[#00ffff] dark:hover:bg-[#00ffff] hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00ffff] 
+                                dark:hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00ffff] 
+                                transition-all duration-300">
+                            Like
+                        </button>
+                    </div>
+                    <div className="mt-6">
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Historical Context</h2>
+                        <p className="text-gray-700 dark:text-gray-300 mt-2">{data.historicalContext}</p>
                     </div>
                 </div>
             </div>

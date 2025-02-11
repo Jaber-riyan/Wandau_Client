@@ -4,13 +4,14 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Authentication/Authentication";
 import './Navbar.css'
+import { ThemeContext } from "../../ThemeProvider/ThemeProvider";
 
 const Navbar = () => {
     const navigate = useNavigate();
     const { user, handleLogout, setUser } = useContext(AuthContext);
 
     // Theme State (default to light mode)
-    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+    const { theme, setTheme } = useContext(ThemeContext);
 
     // Apply theme to <html> element
     useEffect(() => {
@@ -92,7 +93,7 @@ const Navbar = () => {
 
                     <div className="cursor-pointer">
                         <div className="dropdown dropdown-end">
-                            <div tabIndex={0} role="button" className="btn m-1 text-black dark:text-white font-[700] text-[14px]">
+                            <div tabIndex={0} role="button" className="btn m-1 text-black dark:text-black font-[700] text-[14px]">
                                 My Profile
                             </div>
                             <ul tabIndex={0} className="dropdown-content menu bg-base-100 dark:bg-gray-800 rounded-box z-[1] w-52 p-2 shadow">
@@ -170,7 +171,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <div className="md:w-[80%] mx-auto dm-sans-font">
+            <div className="md:w-[90%] mx-auto dm-sans-font">
                 <nav>
                     <div className="navbar text-black dark:text-white">
                         <div className="navbar-start animate__animated animate__fadeInLeft">

@@ -5,24 +5,23 @@ import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import AddedArtifactCard from './AddedArtifactCard/AddedArtifactCard';
 import Swal from 'sweetalert2';
 import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
-import Helmet from 'react-helmet'
+import Helmet from 'react-helmet';
 
 const AddedArtifacts = () => {
-    const axiosInstanceSecure = UseAxiosSecure()
+    const axiosInstanceSecure = UseAxiosSecure();
     const axiosInstanceNormal = UseAxiosNormal();
     const { user } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
     const [addedArtifacts, setAddedArtifacts] = useState([]);
 
-
     useEffect(() => {
         axiosInstanceSecure.get(`/user-added-artifacts/${user.email}`)
             .then(res => {
-                // console.log(res.data.data);
                 setAddedArtifacts(res.data.data);
+                setIsLoading(false);
             })
-    }, [axiosInstanceSecure, user.email, user.displayName])
-
+            .catch(() => setIsLoading(false));
+    }, [axiosInstanceSecure, user.email]);
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -30,55 +29,43 @@ const AddedArtifacts = () => {
             showDenyButton: true,
             showCancelButton: true,
             confirmButtonText: "Yes",
-            denyButtonText: `No`
+            denyButtonText: "No"
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 axiosInstanceNormal.delete(`/artifact-delete/${id}`)
-                    .then(res => {
-                        console.log(res.data);
-                        const remaining = addedArtifacts.filter(artifact => artifact._id !== id);
-                        setAddedArtifacts(remaining);
-                        Swal.fire("Delete!", "", "success");
-                    })
+                    .then(() => {
+                        setAddedArtifacts(prevArtifacts => prevArtifacts.filter(artifact => artifact._id !== id));
+                        Swal.fire("Deleted!", "The artifact has been removed.", "success");
+                    });
             } else if (result.isDenied) {
-                Swal.fire("Not Delete", "", "info");
+                Swal.fire("Not Deleted", "", "info");
             }
         });
-    }
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (isLoading) {
-        return (
-            <div className='md:w-[80%] mx-auto mt-9'>
-                <Helmet><title>Added Artifacts | Wandau</title></Helmet>
-                <h2 className='text-3xl font-bold mb-5'>My Added Artifacts</h2>
-                <div className="min-h-screen flex flex-col items-center justify-center">
-                    <div className="text-2xl font-bold text-blue-600 animate__animated animate__fadeIn animate__slower">
-                        <ReactLoading type="spin" color="red" />
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    };
 
     return (
-        <div className='md:w-[80%] mx-auto mt-9 mb-10'>
+        <div className='md:w-[80%] mx-auto mt-9 mb-10 dark:text-gray-200 min-h-screen'>
             <Helmet><title>Added Artifacts | Wandau</title></Helmet>
-            <h2 className='text-3xl font-bold mb-5'>My Added Artifacts</h2>
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
-                {
-                    addedArtifacts.length > 0 ? addedArtifacts.map(artifact => <AddedArtifactCard key={artifact._id} artifact={artifact} handleDelete={handleDelete}></AddedArtifactCard>)
-                        :
-                        <h2 className='text-3xl font-bold mb-5 text-red-600'>No Added Artifact :(</h2>
-                }
+            <div className='mb-10'>
+                <h2 className='md:text-4xl text-2xl text-center font-bold heading border-2 md:w-2/4 w-[70%] mx-auto py-4 border-[#0ef] border-dashed uppercase shadow-[0_0_15px_#0ef] rounded-2xl dark:shadow-[0_0_20px_#0ef] dark:border-[#0ef]'>
+                    My Added Artifacts
+                </h2>
             </div>
+            {isLoading ? (
+                <div className="flex justify-center items-center min-h-[50vh]">
+                    <ReactLoading type="spin" color="red" height={50} width={50} />
+                </div>
+            ) : (
+                <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
+                    {addedArtifacts.length > 0 ? (
+                        addedArtifacts.map(artifact => (
+                            <AddedArtifactCard key={artifact._id} artifact={artifact} handleDelete={handleDelete} />
+                        ))
+                    ) : (
+                        <h2 className='text-3xl font-bold text-red-600 text-center'>No Added Artifacts :(</h2>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

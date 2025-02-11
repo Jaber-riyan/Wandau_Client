@@ -8,17 +8,16 @@ import { Helmet } from 'react-helmet';
 import { FcGoogle } from 'react-icons/fc';
 import Swal from 'sweetalert2';
 
-
 const Register = () => {
     const [acceptedTerms, setAcceptedTerms] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     const { handleRegister, setUser, user, googleRegister } = useContext(AuthContext);
 
-    // redirect if user already logged in 
+    // redirect if user already logged in
     useEffect(() => {
         if (user) {
-            toast.info("You Logged in ")
+            toast.info("You Logged in ");
             navigate('/');
         }
     }, [user, navigate]);
@@ -30,10 +29,9 @@ const Register = () => {
         const photoURL = form.get('photo');
         const email = form.get('email');
         const password = form.get('password');
-        // console.log({ name, photoURL, email, password });
 
         if (password.length < 6) {
-            toast.error("Password Should Be 6 Character.");
+            toast.error("Password Should Be 6 Characters.");
             return;
         }
         if (!/[A-Z]/.test(password)) {
@@ -41,13 +39,12 @@ const Register = () => {
             return;
         }
         if (!/[a-z]/.test(password)) {
-            toast.error("Password Must have an Lowercase Letter");
+            toast.error("Password Must have a Lowercase Letter");
             return;
         }
 
         handleRegister(email, password)
             .then(result => {
-                // console.log(result.user);
                 updateProfile(auth.currentUser, {
                     displayName: name, photoURL: photoURL
                 })
@@ -56,9 +53,8 @@ const Register = () => {
                     Swal.fire({
                         title: 'Successfully created Account!',
                         icon: 'success'
-                    })
+                    });
                 }
-
 
                 navigate(location?.state || '/');
             })
@@ -69,19 +65,17 @@ const Register = () => {
                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                     .join(" ");
                 toast.error(formattedError);
-            })
-    }
+            });
+    };
 
     const googleSignUp = () => {
         googleRegister()
             .then(res => {
-                console.log(res.user);
                 const user = res.user;
                 Swal.fire({
                     title: 'Successfully Login!',
                     icon: 'success'
-                })
-
+                });
                 navigate('/');
             })
             .catch(error => {
@@ -91,20 +85,20 @@ const Register = () => {
                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                     .join(" ");
                 toast.error(formattedError);
-            })
-    }
+            });
+    };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-[#ffffff] p-8 rounded-lg ">
+        <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 p-8 rounded-lg">
             <Helmet>
                 <title>Register | Wandau</title>
             </Helmet>
-            <div className="w-full max-w-md p-8 space-y-6 shadow-lg bg-[#59dba5] rounded-lg animate__animated animate__zoomIn">
-                <h2 className="text-2xl font-semibold text-center text-[#ffffffce]">Register Your Account</h2>
+            <div className="w-full max-w-md p-8 space-y-6 bg-[#59dba5] dark:bg-[#2a3d47] rounded-lg shadow-lg animate__animated animate__zoomIn">
+                <h2 className="text-2xl font-semibold text-center text-white">Register Your Account</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-[#ffffffce]" htmlFor="name">
+                        <label className="block text-sm font-medium text-gray-300 dark:text-gray-200" htmlFor="name">
                             Your Name
                         </label>
                         <input
@@ -112,12 +106,12 @@ const Register = () => {
                             id="name"
                             name="name"
                             placeholder="Enter your name"
-                            className="w-full px-4 py-2 mt-1 border rounded-md outline-none bg-[#ffffffce] focus:border-gray-400"
+                            className="w-full px-4 py-2 mt-1 border border-gray-300 dark:border-gray-600 rounded-md outline-none bg-white dark:bg-gray-700 text-black dark:text-white focus:ring-2 focus:ring-[#59dba5] transition"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-[#ffffffce]" htmlFor="photo">
+                        <label className="block text-sm font-medium text-gray-300 dark:text-gray-200" htmlFor="photo">
                             Photo URL
                         </label>
                         <input
@@ -125,12 +119,12 @@ const Register = () => {
                             id="photo"
                             name="photo"
                             placeholder="Enter photo URL"
-                            className="w-full px-4 py-2 mt-1 border rounded-md outline-none bg-[#ffffffce] focus:border-gray-400"
+                            className="w-full px-4 py-2 mt-1 border border-gray-300 dark:border-gray-600 rounded-md outline-none bg-white dark:bg-gray-700 text-black dark:text-white focus:ring-2 focus:ring-[#59dba5] transition"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-[#ffffffce]" htmlFor="email">
+                        <label className="block text-sm font-medium text-gray-300 dark:text-gray-200" htmlFor="email">
                             Email
                         </label>
                         <input
@@ -138,12 +132,12 @@ const Register = () => {
                             id="email"
                             name="email"
                             placeholder="Enter your email address"
-                            className="w-full px-4 py-2 mt-1 border rounded-md outline-none bg-[#ffffffce] focus:border-gray-400"
+                            className="w-full px-4 py-2 mt-1 border border-gray-300 dark:border-gray-600 rounded-md outline-none bg-white dark:bg-gray-700 text-black dark:text-white focus:ring-2 focus:ring-[#59dba5] transition"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-[#ffffffce]" htmlFor="password">
+                        <label className="block text-sm font-medium text-gray-300 dark:text-gray-200" htmlFor="password">
                             Password
                         </label>
                         <input
@@ -151,7 +145,7 @@ const Register = () => {
                             id="password"
                             name="password"
                             placeholder="Enter your password"
-                            className="w-full px-4 py-2 mt-1 border rounded-md outline-none bg-[#ffffffce] focus:border-gray-400"
+                            className="w-full px-4 py-2 mt-1 border border-gray-300 dark:border-gray-600 rounded-md outline-none bg-white dark:bg-gray-700 text-black dark:text-white focus:ring-2 focus:ring-[#59dba5] transition"
                         />
                     </div>
 
@@ -162,26 +156,28 @@ const Register = () => {
                             name="terms"
                             checked={acceptedTerms}
                             onChange={() => setAcceptedTerms(!acceptedTerms)}
-                            className="w-4 h-4 mr-2 text-gray-800 border-gray-300 rounded focus:ring-0"
+                            className="w-4 h-4 mr-2 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 rounded focus:ring-0"
                         />
-                        <label htmlFor="terms" className="text-sm text-[#ffffffb0]">
-                            Accept <span className="font-bold text-[#ffffffce]">Terms & Conditions</span>
+                        <label htmlFor="terms" className="text-sm text-gray-300 dark:text-gray-200">
+                            Accept <span className="font-bold">Terms & Conditions</span>
                         </label>
                     </div>
+
                     <button
                         disabled={!acceptedTerms}
-                        className={`w-full py-2 mt-4 text-white rounded-md ${acceptedTerms ? 'bg-gray-800 hover:bg-gray-900' : 'bg-gray-400 cursor-not-allowed'
-                            }`}
+                        className={`w-full py-2 mt-4 text-white rounded-md ${acceptedTerms ? 'bg-gray-800 hover:bg-gray-900' : 'bg-gray-400 cursor-not-allowed'}`}
                     >
                         Register
                     </button>
                 </form>
-                <div className="divider"></div>
-                <div className='flex justify-center'>
-                    <FcGoogle className='cursor-pointer' onClick={googleSignUp} size={40} />
+
+                <div className="divider dark:border-gray-600"></div>
+
+                <div className="flex justify-center">
+                    <FcGoogle className="cursor-pointer" onClick={googleSignUp} size={40} />
                 </div>
 
-                <p className="mt-4 text-center text-sm text-[#ffffffce]">
+                <p className="mt-4 text-center text-sm text-gray-300 dark:text-gray-200">
                     Already Have An Account?{' '}
                     <Link to="/login" className="text-red-500 hover:underline">
                         Login

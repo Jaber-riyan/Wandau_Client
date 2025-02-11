@@ -13,74 +13,72 @@ const FeaturedArtifacts = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [artifacts, setArtifacts] = useState([]);
     const { user } = useAuth();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         axiosInstanceNormal.get('/featured-artifacts')
             .then(res => {
                 setArtifacts(res.data.data);
-                // console.log(res.data.data);
+                setIsLoading(false);
             })
-    }, [axiosInstanceNormal])
-
+            .catch(() => {
+                toast.error("Failed to load artifacts.");
+                setIsLoading(false);
+            });
+    }, [axiosInstanceNormal]);
 
     const handleLike = (id) => {
-        // console.log(id);
-        if(!user) {
-            toast.info("Please login first!")
-            return navigate("/login")
+        if (!user) {
+            toast.info("Please login first!");
+            return navigate("/login");
         }
-        const body = { likeArtifact: id, user: user?.email, userName: user?.displayName }
+
+        const body = { likeArtifact: id, user: user?.email, userName: user?.displayName };
         axiosInstanceSecure.post(`/like/${id}?email=${user.email}`, body)
             .then(res => {
-                // console.log(res.data.status);
                 if (!res.data.status) {
-                    toast.info("You Already Liked This Artifact")
-                    return
+                    toast.info("You already liked this artifact.");
+                    return;
                 }
-                else {
-                    axiosInstanceSecure.patch(`/like/${id}`)
-                        .then(res => {
-                            console.log(res.data);
-                        })
-                    axiosInstanceNormal.get('/featured-artifacts')
-                        .then(res => {
-                            setArtifacts(res.data.data);
-                            console.log(res.data.data);
-                        })
-                }
-            })
-
-    }
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-        return () => clearTimeout(timer);
-    }, []);
+                axiosInstanceSecure.patch(`/like/${id}`)
+                    .then(() => {
+                        axiosInstanceNormal.get('/featured-artifacts')
+                            .then(res => setArtifacts(res.data.data));
+                    });
+            });
+    };
 
     if (isLoading) {
-        return (
-            <Loading text={"Featured Artifacts"}></Loading>
-        );
+        return <>
+            <div className='mb-10 mt-10'>
+                <h2 className='md:text-4xl text-2xl text-center dark:text-white font-bold heading border-2 md:w-2/4 w-[70%] mx-auto py-4 border-[#0ef] border-dashed uppercase shadow-[0_0_15px_#0ef] rounded-2xl dark:shadow-[0_0_20px_#0ef] dark:border-[#0ef]'>
+                    Featured Artifacts
+                </h2>
+            </div>
+            <Loading text="" />;
+        </>
     }
 
     return (
-        <div className='w-[90%] mx-auto space-y-4'>
-            <h2 className='text-3xl font-bold mb-5 dark:text-white heading'>Featured Artifacts</h2>
-
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
-                {
-                    artifacts.length > 0 && artifacts.map(artifact => <FeaturedArtifactsCard key={artifact._id} artifact={artifact} handleLike={handleLike}></FeaturedArtifactsCard>)
-                }
+        <div className='w-[90%] mx-auto space-y-6'>
+            <div className='mb-10 mt-10'>
+                <h2 className='md:text-4xl text-2xl text-center dark:text-white font-bold heading border-2 md:w-2/4 w-[70%] mx-auto py-4 border-[#0ef] border-dashed uppercase shadow-[0_0_15px_#0ef] rounded-2xl dark:shadow-[0_0_20px_#0ef] dark:border-[#0ef]'>
+                    Featured Artifacts
+                </h2>
             </div>
+
+            {artifacts.length > 0 ? (
+                <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
+                    {artifacts.map(artifact => (
+                        <FeaturedArtifactsCard key={artifact._id} artifact={artifact} handleLike={handleLike} />
+                    ))}
+                </div>
+            ) : (
+                <p className='text-center text-2xl font-semibold text-gray-500 dark:text-gray-400'>No artifacts available at the moment.</p>
+            )}
+
             <div className='flex justify-center'>
-                <Link to={'/all-artifacts'} className="mt-7 px-9 py-2 ml-2 bg-[#0ef] dark:bg-[#00bcd4] rounded-3xl text-black dark:text-white font-bold
-                                shadow-[0_0_5px_#0ef,0_0_25px_#0ef] dark:shadow-[0_0_5px_#00bcd4,0_0_25px_#00bcd4]
-                                hover:bg-[#00ffff] dark:hover:bg-[#00ffff] hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00ffff] 
-                                dark:hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00ffff] 
-                                transition-all duration-300 animate__animated animate__heartBeat animate__infinite">
+                <Link to='/all-artifacts' className="px-8 py-3 bg-[#0ef] dark:bg-[#00bcd4] text-black dark:text-white font-bold rounded-xl shadow-lg transition-all hover:bg-[#00ffff] dark:hover:bg-[#00ffff] hover:shadow-2xl">
                     See All
                 </Link>
             </div>
