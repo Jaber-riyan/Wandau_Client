@@ -4,6 +4,7 @@ import FeaturedArtifacts from '../../Components/FeaturedArtifacts/FeaturedArtifa
 import ArtInspiration from '../../Components/ArtInspiration/ArtInspiration';
 import SignUpLatestNews from '../../Components/SignUpLatestNews/SignUpLatestNews';
 import { useNavigate } from 'react-router-dom';
+import RecentNews from '../../Components/RecentNews/RecentNews';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -49,6 +50,9 @@ const Home = () => {
             </section>
             <section className='border-b-2 dark:border-gray-600 border-gray-400'>
                 <ArtInspiration></ArtInspiration>
+            </section>
+            <section className='border-b-2 dark:border-gray-600 border-gray-400'>
+                <RecentNews></RecentNews>
             </section>
             <section className='border-b-2 dark:border-gray-600 border-gray-400'>
                 <SignUpLatestNews></SignUpLatestNews>
