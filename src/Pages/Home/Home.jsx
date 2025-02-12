@@ -5,6 +5,7 @@ import ArtInspiration from '../../Components/ArtInspiration/ArtInspiration';
 import SignUpLatestNews from '../../Components/SignUpLatestNews/SignUpLatestNews';
 import { useNavigate } from 'react-router-dom';
 import RecentNews from '../../Components/RecentNews/RecentNews';
+import MembershipSection from '../../Components/MembershipSection/MembershipSection';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -50,6 +51,9 @@ const Home = () => {
             </section>
             <section className='border-b-2 dark:border-gray-600 border-gray-400'>
                 <ArtInspiration></ArtInspiration>
+            </section>
+            <section className='border-b-2 dark:border-gray-600 border-gray-400'>
+                <MembershipSection></MembershipSection>
             </section>
             <section className='border-b-2 dark:border-gray-600 border-gray-400'>
                 <RecentNews></RecentNews>
