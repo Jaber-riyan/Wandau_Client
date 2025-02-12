@@ -15,6 +15,7 @@ import LikedArtifacts from "../Pages/LikedArtifacts/LikedArtifacts";
 import UpdateArtifact from "../Pages/UpdateArtifact/UpdateArtifact";
 import ErrorForRoot from "../Error/ErrorForRoot";
 import LikedPersons from "../Pages/LikedPersons/LikedPersons";
+import NoInternet from "../Error/NoInternet";
 
 
 
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
             {
                 path: '/liked-persons/:id',
                 element: <PrivateRoutes><LikedPersons></LikedPersons></PrivateRoutes>
+            },
+            {
+                path: '/no-internet',
+                element: <NoInternet></NoInternet>
             }
         ]
     },

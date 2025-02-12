@@ -62,11 +62,11 @@ const AddArtifact = () => {
             return;
         }
 
-        const addData = { 
-            ...formData, 
-            artifactAddedBy: user?.displayName, 
-            email: user?.email, 
-            likeCount: 0 
+        const addData = {
+            ...formData,
+            artifactAddedBy: user?.displayName,
+            email: user?.email,
+            likeCount: 0
         };
 
         axiosInstanceNormal.post('/add-artifacts', addData)
@@ -93,11 +93,11 @@ const AddArtifact = () => {
         <div className="min-h-screen flex justify-center items-center p-6 bg-gray-100 dark:bg-gray-900">
             <Helmet><title>Add Artifact | Wandau</title></Helmet>
             <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8 w-full max-w-3xl">
-            <div className='mb-10 mt-10'>
-                <h2 className='md:text-4xl text-2xl dark:text-white text-center font-bold heading border-2 md:w-2/3 w-[70%] mx-auto py-4 border-[#0ef] border-dashed uppercase shadow-[0_0_15px_#0ef] rounded-2xl dark:shadow-[0_0_20px_#0ef] dark:border-[#0ef]'>
-                    Add New Artifact
-                </h2>
-            </div>
+                <div className='mb-10 mt-10'>
+                    <h2 className='md:text-4xl text-2xl dark:text-white text-center font-bold heading border-2 md:w-2/3 w-[70%] mx-auto py-4 border-[#0ef] border-dashed uppercase shadow-[0_0_15px_#0ef] rounded-2xl dark:shadow-[0_0_20px_#0ef] dark:border-[#0ef]'>
+                        Add New Artifact
+                    </h2>
+                </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {Object.keys(formData).map((key) => (
                         key !== "artifactImage" && (
@@ -115,9 +115,14 @@ const AddArtifact = () => {
                                     >
                                         <option value="">Select type</option>
                                         <option value="Tools">Tools</option>
-                                        <option value="Weapons">Weapons</option>
                                         <option value="Documents">Documents</option>
                                         <option value="Writings">Writings</option>
+                                        <option value="Sculpture">Sculpture</option>
+                                        <option value="Architecture">Architecture</option>
+                                        <option value="Art/Sculpture">Art/Sculpture</option>
+                                        <option value="Armor/Weapons">Armor/Weapons</option>
+                                        <option value="Books/Manuscripts">Books/Manuscripts</option>
+                                        <option value="Relics">Relics</option>
                                     </select>
                                 ) : (
                                     <input
@@ -172,11 +177,10 @@ const AddArtifact = () => {
 
                     <button
                         type="submit"
-                        className={`w-full py-3 rounded font-semibold transition ${
-                            imageUploading 
-                                ? "bg-gray-400 cursor-not-allowed" 
+                        className={`w-full py-3 rounded font-semibold transition ${imageUploading
+                                ? "bg-gray-400 cursor-not-allowed"
                                 : "bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700"
-                        }`}
+                            }`}
                         disabled={imageUploading}
                     >
                         {imageUploading ? "Uploading Image..." : "Add Artifact"}

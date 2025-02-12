@@ -5,6 +5,7 @@ import UseAxiosNormal from "../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactLoading from 'react-loading';
 import Helmet from 'react-helmet';
+import Loading from "../../Loading/Loading";
 
 const UpdateArtifact = () => {
     const axiosInstanceNormal = UseAxiosNormal();
@@ -86,12 +87,7 @@ const UpdateArtifact = () => {
         return (
             <div className='md:w-[80%] mx-auto mt-9'>
                 <Helmet><title>Update Artifact | Wandau</title></Helmet>
-                <h2 className='text-3xl font-bold mb-5'>My Added Artifacts</h2>
-                <div className="min-h-screen flex flex-col items-center justify-center">
-                    <div className="text-2xl font-bold text-blue-600 animate__animated animate__fadeIn animate__slower">
-                        <ReactLoading type="spin" color="red" />
-                    </div>
-                </div>
+                <Loading text=""></Loading>
             </div>
         );
     }
@@ -161,9 +157,14 @@ const UpdateArtifact = () => {
                         >
                             <option value="">Select type</option>
                             <option value="Tools">Tools</option>
-                            <option value="Weapons">Weapons</option>
                             <option value="Documents">Documents</option>
                             <option value="Writings">Writings</option>
+                            <option value="Sculpture">Sculpture</option>
+                            <option value="Architecture">Architecture</option>
+                            <option value="Art/Sculpture">Art/Sculpture</option>
+                            <option value="Armor/Weapons">Armor/Weapons</option>
+                            <option value="Books/Manuscripts">Books/Manuscripts</option>
+                            <option value="Relics">Relics</option>
                         </select>
                     </div>
 

@@ -3,7 +3,7 @@ import { FaHeart, FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const FeaturedArtifactsCard = ({ artifact, handleLike }) => {
-    const { artifactName, artifactImage, historicalContext, likeCount, _id } = artifact;
+    const { artifactName, artifactImage, historicalContext, likeCount, _id, artifactType } = artifact;
 
     return (
         <div className="cinzel-font bg-gray-100 dark:bg-[#2a2d3f] rounded-lg overflow-hidden transform hover:scale-105 transition-all duration-500 animate__animated animate__fadeIn shadow-[0_0_13px_#000] dark:hover:shadow-[0_0_20px_#fff] dark:shadow-[0_0_10px_#fff]">
@@ -17,6 +17,8 @@ const FeaturedArtifactsCard = ({ artifact, handleLike }) => {
                     className="h-72 w-full object-cover"
                 />
             </div>
+
+            <h3>{artifactType}</h3>
 
             {/* Content */}
             <div className="p-5">

@@ -93,7 +93,7 @@ const AllArtifacts = () => {
                     </div>
                 ) : (
                     <h2 className="text-3xl font-bold mb-5 text-red-500 text-center">
-                        No Artifacts Found by this name: "{searchValue}" :(
+                        No Artifacts Found :(
                     </h2>
                 )
             )}
