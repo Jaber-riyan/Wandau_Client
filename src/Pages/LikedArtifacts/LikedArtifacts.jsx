@@ -31,8 +31,8 @@ const LikedArtifacts = () => {
     }, [axiosInstanceSecure, user?.email]);
 
     const handleLike = (id) => {
-        toast.success("Artifact Liked Successfully!", {
-            position: "top-right",
+        toast.info("Just Readable!", {
+            position: "top-center",
             autoClose: 2000,
             hideProgressBar: true,
         });

@@ -18,8 +18,6 @@ const FeaturedArtifactsCard = ({ artifact, handleLike }) => {
                 />
             </div>
 
-            <h3>{artifactType}</h3>
-
             {/* Content */}
             <div className="p-5">
                 {/* Name */}
